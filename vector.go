@@ -5,7 +5,6 @@
 package ng
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -19,10 +18,11 @@ func (v Vector) Size() []int {
 	return []int{len(v)}
 }
 
-func (v1 Vector) Dot(v2 Vector) float64 {
+func (v Vector) Dot(vn Vector) float64 {
 	sum := 0.0
-	for i := range v1 {
-		sum += v1[i] * v2[i]
+	vt := vn[:len(v)]
+	for i := range v {
+		sum += v[i] * vt[i]
 	}
 	return sum
 }
@@ -42,11 +42,9 @@ func (v Vector) Scale(s float64) {
 }
 
 func (v Vector) Add(vn Vector) {
-	if len(v) != len(vn) {
-		panic(fmt.Errorf("Vector lengths are not equal"))
-	}
+	vt := vn[:len(v)]
 	for i := range v {
-		v[i] += vn[i]
+		v[i] += vt[i]
 	}
 }
 
