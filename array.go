@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package ng provides numerical methods for the Go programming language.
 package ng
 
 // Array is the base type of the ng package.
