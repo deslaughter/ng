@@ -6,13 +6,13 @@ package ng
 
 import "testing"
 
-func TestNewArray(t *testing.T) {
+func TestNewVector(t *testing.T) {
 
 	const size = 5
 
-	a := NewArray(size)
+	a := NewVector(size)
 	if act, exp := len(a), size; act != exp {
-		t.Fatalf("a := NewArray(size); len(a) = %d, expected %d", act, exp)
+		t.Fatalf("a := NewVector(size); len(a) = %d, expected %d", act, exp)
 	}
 }
 
@@ -26,7 +26,7 @@ func TestMatrix(t *testing.T) {
 
 func TestFill(t *testing.T) {
 	const value = 1.0
-	a := NewArray(5)
+	a := NewVector(5)
 	a.Fill(value)
 	for i := range a {
 		if a[i] != value {
@@ -37,7 +37,7 @@ func TestFill(t *testing.T) {
 
 func TestResize(t *testing.T) {
 	const size = 10
-	a := NewArray(5)
+	a := NewVector(5)
 	a.Resize(size)
 	if act, exp := len(a), size; act != exp {
 		t.Fatalf("a.Resize(size); len(a) = %d, expected %d", act, exp)
