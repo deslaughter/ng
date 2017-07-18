@@ -4,7 +4,10 @@
 
 package ng
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestNewVector(t *testing.T) {
 	const size = 5
@@ -14,7 +17,7 @@ func TestNewVector(t *testing.T) {
 	}
 }
 
-func TestFill(t *testing.T) {
+func TestVector_Fill(t *testing.T) {
 	const value = 1.0
 	v := NewVector(5)
 	v.Fill(value)
@@ -25,7 +28,7 @@ func TestFill(t *testing.T) {
 	}
 }
 
-func TestResize(t *testing.T) {
+func TestVector_Resize(t *testing.T) {
 	const size = 10
 	v := NewVector(5)
 	v.Resize(size)
@@ -34,7 +37,7 @@ func TestResize(t *testing.T) {
 	}
 }
 
-func TestSum(t *testing.T) {
+func TestVector_Sum(t *testing.T) {
 
 	v := NewVector(10)
 	for i := range v {
