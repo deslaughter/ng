@@ -43,3 +43,14 @@ func TestResize(t *testing.T) {
 		t.Fatalf("a.Resize(size); len(a) = %d, expected %d", act, exp)
 	}
 }
+
+func TestSum(t *testing.T) {
+
+	v := NewVector(10)
+	for i := range v {
+		v[i] = 1.0
+	}
+	if act, exp := v.Sum(), 10.0; act != exp {
+		t.Fatalf("v.Resize(size); len(v) = %v, expected %v", act, exp)
+	}
+}
