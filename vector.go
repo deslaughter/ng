@@ -40,12 +40,15 @@ func (v Vector) Magnitude() float64 {
 	return math.Sqrt(sum)
 }
 
+// Scale multiplies all elements of the vector by the given value.
 func (v Vector) Scale(s float64) {
 	for i := range v {
 		v[i] *= s
 	}
 }
 
+// Add sums each element of the given vector with the current vector and stores
+// the resulting value in the current vector.
 func (v Vector) Add(vn Vector) {
 	vt := vn[:len(v)]
 	for i := range v {
@@ -79,6 +82,7 @@ func (v *Vector) Resize(size int) {
 	*v = append(*v, make([]float64, size-cap(*v))...)
 }
 
+// Sum returns the sum of all values in the vector.
 func (v Vector) Sum() float64 {
 	sum := 0.0
 	for _, value := range v {
