@@ -44,3 +44,9 @@ func TestSum(t *testing.T) {
 		t.Fatalf("v.Resize(size); len(v) = %v, expected %v", act, exp)
 	}
 }
+
+func ExampleVector_Sum() {
+	v := Vector{1, 2, 3, 4, 5}
+	fmt.Println(v.Sum())
+	// Output: 15
+}
