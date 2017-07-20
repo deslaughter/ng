@@ -6,6 +6,7 @@ package ng
 
 import (
 	"fmt"
+	"math"
 	"testing"
 )
 
@@ -77,6 +78,13 @@ func TestVector_Dot(t *testing.T) {
 	vb := Vector{4, 5, 6}
 	if act, exp := va.Dot(vb), 32.0; act != exp {
 		t.Fatalf("va.Dot(vb) = %v, expected %v", act, exp)
+	}
+}
+
+func TestVector_Magnitude(t *testing.T) {
+	v := Vector{1, 2, 3}
+	if act, exp := v.Magnitude(), math.Sqrt(14.0); act != exp {
+		t.Fatalf("v.Magnitude() = %v, expected %v", act, exp)
 	}
 }
 
