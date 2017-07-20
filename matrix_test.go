@@ -4,7 +4,17 @@
 
 package ng
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
+
+func TestMatrix_Dimensions(t *testing.T) {
+	m := Matrix{}
+	if act, exp := m.Dimensions(), 2; act != exp {
+		t.Fatalf("m.Dimensions() = %v, expected %v", act, exp)
+	}
+}
 
 func ExampleMatrix_Multiply_first() {
 
