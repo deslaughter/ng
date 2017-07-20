@@ -55,6 +55,23 @@ func TestVector_Matrix(t *testing.T) {
 	}
 }
 
+func TestVector_Dimensions(t *testing.T) {
+	v := Vector{}
+	if act, exp := v.Dimensions(), 1; act != exp {
+		t.Fatalf("v.Dimensions() = %v, expected %v", act, exp)
+	}
+}
+
+func TestVector_Size(t *testing.T) {
+	v := Vector{1, 2, 3, 4, 5}
+	if act, exp := len(v.Size()), 1; act != exp {
+		t.Fatalf("len(v.Size()) = %v, expected %v", act, exp)
+	}
+	if act, exp := v.Size()[0], len(v); act != exp {
+		t.Fatalf("v.Size()[0] = %v, expected %v", act, exp)
+	}
+}
+
 func TestVector_Fill(t *testing.T) {
 	const value = 1.0
 	v := NewVector(5)
