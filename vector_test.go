@@ -72,6 +72,14 @@ func TestVector_Size(t *testing.T) {
 	}
 }
 
+func TestVector_Dot(t *testing.T) {
+	va := Vector{1, 2, 3}
+	vb := Vector{4, 5, 6}
+	if act, exp := va.Dot(vb), 32.0; act != exp {
+		t.Fatalf("va.Dot(vb) = %v, expected %v", act, exp)
+	}
+}
+
 func TestVector_Fill(t *testing.T) {
 	const value = 1.0
 	v := NewVector(5)
