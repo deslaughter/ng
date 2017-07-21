@@ -6,7 +6,6 @@ package ng
 
 import (
 	"fmt"
-	"math"
 	"testing"
 )
 
@@ -63,6 +62,12 @@ func TestVector_Dimensions(t *testing.T) {
 	}
 }
 
+func ExampleVector_Dimensions() {
+	v := Vector{1, 2, 3, 4, 5}
+	fmt.Println(v.Dimensions())
+	// Output: 1
+}
+
 func TestVector_Size(t *testing.T) {
 	v := Vector{1, 2, 3, 4, 5}
 	if act, exp := len(v.Size()), 1; act != exp {
@@ -71,6 +76,12 @@ func TestVector_Size(t *testing.T) {
 	if act, exp := v.Size()[0], len(v); act != exp {
 		t.Fatalf("v.Size()[0] = %v, expected %v", act, exp)
 	}
+}
+
+func ExampleVector_Size() {
+	v := Vector{1, 2, 3, 4, 5}
+	fmt.Println(v.Size())
+	// Output: [5]
 }
 
 func TestVector_Dot(t *testing.T) {
@@ -82,10 +93,38 @@ func TestVector_Dot(t *testing.T) {
 }
 
 func TestVector_Magnitude(t *testing.T) {
-	v := Vector{1, 2, 3}
-	if act, exp := v.Magnitude(), math.Sqrt(14.0); act != exp {
+	v := Vector{2, 6, 9}
+	if act, exp := v.Magnitude(), 11.0; act != exp {
 		t.Fatalf("v.Magnitude() = %v, expected %v", act, exp)
 	}
+}
+
+func ExampleVector_Magnitude() {
+	v := Vector{2, 6, 9}
+	fmt.Println(v.Magnitude())
+	// Output: 11
+}
+
+func ExampleVector_Scale() {
+	v := Vector{2, 3, 4}
+	v.Scale(5)
+	fmt.Println(v)
+	// Output: [10 15 20]
+}
+
+func ExampleVector_Add() {
+	va := Vector{1, 2, 3}
+	vb := Vector{4, 5, 6}
+	va.Add(vb)
+	fmt.Println(va)
+	// Output: [5 7 9]
+}
+
+func ExampleVector_Normalize() {
+	v := Vector{6, 8}
+	v.Normalize()
+	fmt.Println(v)
+	// Output: [0.6000000000000001 0.8]
 }
 
 func TestVector_Fill(t *testing.T) {
@@ -99,6 +138,13 @@ func TestVector_Fill(t *testing.T) {
 	}
 }
 
+func ExampleVector_Fill() {
+	v := NewVector(5)
+	v.Fill(1.0)
+	fmt.Println(v)
+	// Output: [1 1 1 1 1]
+}
+
 func TestVector_Resize(t *testing.T) {
 	const size = 10
 	v := NewVector(5)
@@ -106,6 +152,20 @@ func TestVector_Resize(t *testing.T) {
 	if act, exp := len(v), size; act != exp {
 		t.Fatalf("a.Resize(size); len(a) = %d, expected %d", act, exp)
 	}
+}
+
+func ExampleVector_Resize() {
+	v := NewVector(5)
+	v.Fill(5)
+	fmt.Println(v)
+	v.Resize(10)
+	fmt.Println(v)
+	v.Resize(3)
+	fmt.Println(v)
+	// Output:
+	// [5 5 5 5 5]
+	// [5 5 5 5 5 0 0 0 0 0]
+	// [5 5 5]
 }
 
 func TestVector_Sum(t *testing.T) {
