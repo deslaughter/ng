@@ -34,3 +34,14 @@ func (A Matrix) Multiply(B Matrix) (v Vector, rows int, columns int) {
 	}
 	return v, rows, columns
 }
+
+// Sum returns the sum of all elements in the matrix.
+func (A Matrix) Sum() float64 {
+	sum := 0.0
+	for _, row := range A {
+		for _, v := range row {
+			sum += v
+		}
+	}
+	return sum
+}
