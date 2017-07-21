@@ -4,18 +4,20 @@
 
 package ng
 
+// Matrix represents a 2-D array as a slice of slices. A matrix is created
+// as a view of a Vector.
 type Matrix [][]float64
 
 // Dimensions returns the number of dimensions in the matrix which is 2.
-func (m Matrix) Dimensions() int {
+func (A Matrix) Dimensions() int {
 	return 2
 }
 
 // Size returns of slice of integers containing the length of each dimension
 // of the matrix. Since there are two dimensions, the slice contains two
 // elements: the number of rows and the number of columns.
-func (m Matrix) Size() []int {
-	return []int{len(m), len(m[0])}
+func (A Matrix) Size() []int {
+	return []int{len(A), len(A[0])}
 }
 
 // Multiply performs matrix multiplication AB = C and returns a vector

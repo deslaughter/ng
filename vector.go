@@ -78,8 +78,8 @@ func (a Vector) Add(b Vector) {
 
 // Normalize scales the vector by one over the magnitude of the vector such that
 // the vector's magnitude is one. Transforms vector into the unit vector.
-func (v Vector) Normalize() {
-	v.Scale(1 / v.Magnitude())
+func (a Vector) Normalize() {
+	a.Scale(1 / a.Magnitude())
 }
 
 // Fill sets all elements of the vector to the given value.
