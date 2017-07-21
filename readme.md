@@ -17,5 +17,5 @@ $ go get github.com/deslaughter/ng
 
 ## Documentation
 
-Please visit [godoc.org/github.com/deslaughter/ng](godoc.org/github.com/deslaughter/ng) for documentation.
+Please visit [godoc.org/github.com/deslaughter/ng](http://godoc.org/github.com/deslaughter/ng) for documentation.
 
