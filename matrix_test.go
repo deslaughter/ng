@@ -47,6 +47,26 @@ func TestNewMatrix(t *testing.T) {
 	}
 }
 
+func ExampleNewMatrix() {
+
+	v := Vector{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	m := NewMatrix(v, 3, 3)
+
+	fmt.Println(m)
+	// Output:
+	// [[1 2 3] [4 5 6] [7 8 9]]
+}
+
+func ExampleMatrix_Dimensions() {
+
+	v := Vector{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	m := NewMatrix(v, 3, 3)
+
+	fmt.Println(m.Dimensions())
+	// Output:
+	// 2
+}
+
 func TestMatrix_Dimensions(t *testing.T) {
 	m := Matrix{}
 	if act, exp := m.Dimensions(), 2; act != exp {
