@@ -59,3 +59,25 @@ func (A Matrix) Sum() float64 {
 	}
 	return sum
 }
+
+// SumRows returns a vector containing the sum of all elements in each row.
+func (A Matrix) SumRows() Vector {
+	sum := make(Vector, len(A))
+	for i, row := range A {
+		for _, v := range row {
+			sum[i] += v
+		}
+	}
+	return sum
+}
+
+// SumColumns returns a vector containing the sum of all elements in each column.
+func (A Matrix) SumColumns() Vector {
+	sum := make(Vector, len(A[0]))
+	for _, row := range A {
+		for j, v := range row {
+			sum[j] += v
+		}
+	}
+	return sum
+}

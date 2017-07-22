@@ -120,3 +120,27 @@ func ExampleMatrix_Sum() {
 	// [[1 2 3] [4 5 6] [7 8 9]]
 	// 45
 }
+
+func ExampleMatrix_SumRows() {
+
+	v := Vector{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	m := NewMatrix(v, 3, 3)
+
+	fmt.Println(m)
+	fmt.Println(m.SumRows())
+	// Output:
+	// [[1 2 3] [4 5 6] [7 8 9]]
+	// [6 15 24]
+}
+
+func ExampleMatrix_SumColumns() {
+
+	v := Vector{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	m := NewMatrix(v, 3, 3)
+
+	fmt.Println(m)
+	fmt.Println(m.SumColumns())
+	// Output:
+	// [[1 2 3] [4 5 6] [7 8 9]]
+	// [12 15 18]
+}
