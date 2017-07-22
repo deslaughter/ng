@@ -96,3 +96,27 @@ func ExampleMatrix_Multiply_second() {
 	// Output:
 	// [[32]]
 }
+
+func ExampleMatrix_Size() {
+
+	v := Vector{1, 2, 3, 4}
+	m := NewMatrix(v, 2, 2)
+
+	fmt.Println(m)
+	fmt.Println(m.Size())
+	// Output:
+	// [[1 2] [3 4]]
+	// [2 2]
+}
+
+func ExampleMatrix_Sum() {
+
+	v := Vector{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	m := NewMatrix(v, 3, 3)
+
+	fmt.Println(m)
+	fmt.Println(m.Sum())
+	// Output:
+	// [[1 2 3] [4 5 6] [7 8 9]]
+	// 45
+}
