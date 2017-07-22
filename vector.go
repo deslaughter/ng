@@ -16,28 +16,18 @@ func NewVector(size int) Vector {
 	return make([]float64, size)
 }
 
-// Matrix returns a 2-D view of the vector with the given number of rows and
-// columns. The vector is interpreted in row-major order. A panic will occur
-// if rows * columns > Vector.Size().
-func (a Vector) Matrix(rows, columns int) Matrix {
-	d := a[:rows*columns]
-	m := make([][]float64, rows)
-	for i := range m {
-		m[i], d = d[:columns:columns], d[columns:]
+// Add sums each element of the given vector with the current vector and stores
+// the resulting value in the current vector.
+func (a Vector) Add(b Vector) {
+	bt := b[:len(a)]
+	for i := range a {
+		a[i] += bt[i]
 	}
-	return m
 }
 
 // Dimensions returns the number of dimensions in the vector which is 1.
 func (a Vector) Dimensions() int {
 	return 1
-}
-
-// Size returns of slice of integers containing the length of each dimension
-// of the vector. Since there is only one dimension, the first element of
-// the slice will contain the same value as Vector.Size().
-func (a Vector) Size() []int {
-	return []int{len(a)}
 }
 
 // Dot returns the dot product of this vector and the given vector.
@@ -51,6 +41,13 @@ func (a Vector) Dot(b Vector) float64 {
 	return sum
 }
 
+// Fill sets all elements of the vector to the given value.
+func (a Vector) Fill(v float64) {
+	for i := range a {
+		a[i] = v
+	}
+}
+
 // Magnitude returns the sum of each element squared.
 func (a Vector) Magnitude() float64 {
 	sum := 0.0
@@ -60,33 +57,22 @@ func (a Vector) Magnitude() float64 {
 	return math.Sqrt(sum)
 }
 
-// Scale multiplies all elements of the vector by the given value.
-func (a Vector) Scale(s float64) {
-	for i := range a {
-		a[i] *= s
+// Matrix returns a 2-D view of the vector with the given number of rows and
+// columns. The vector is interpreted in row-major order. A panic will occur
+// if rows * columns > Vector.Size().
+func (a Vector) Matrix(rows, columns int) Matrix {
+	d := a[:rows*columns]
+	m := make([][]float64, rows)
+	for i := range m {
+		m[i], d = d[:columns:columns], d[columns:]
 	}
-}
-
-// Add sums each element of the given vector with the current vector and stores
-// the resulting value in the current vector.
-func (a Vector) Add(b Vector) {
-	bt := b[:len(a)]
-	for i := range a {
-		a[i] += bt[i]
-	}
+	return m
 }
 
 // Normalize scales the vector by one over the magnitude of the vector such that
 // the vector's magnitude is one. Transforms vector into the unit vector.
 func (a Vector) Normalize() {
 	a.Scale(1 / a.Magnitude())
-}
-
-// Fill sets all elements of the vector to the given value.
-func (a Vector) Fill(v float64) {
-	for i := range a {
-		a[i] = v
-	}
 }
 
 // Resize changes the size and capacity of the vector. If the capacity is
@@ -96,6 +82,20 @@ func (a *Vector) Resize(size int) {
 		*a = (*a)[:size:size]
 	}
 	*a = append(*a, make([]float64, size-cap(*a))...)
+}
+
+// Scale multiplies all elements of the vector by the given value.
+func (a Vector) Scale(s float64) {
+	for i := range a {
+		a[i] *= s
+	}
+}
+
+// Size returns of slice of integers containing the length of each dimension
+// of the vector. Since there is only one dimension, the first element of
+// the slice will contain the same value as Vector.Size().
+func (a Vector) Size() []int {
+	return []int{len(a)}
 }
 
 // Sum returns the sum of all values in the vector.
