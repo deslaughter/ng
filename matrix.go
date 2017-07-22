@@ -8,16 +8,21 @@ package ng
 // as a view of a Vector.
 type Matrix [][]float64
 
+// NewMatrix returns a 2-D view of the vector with the given number of rows and
+// columns. The vector is interpreted in row-major order. A panic will occur
+// if rows * columns > Vector.Size().
+func NewMatrix(v Vector, rows, columns int) Matrix {
+	d := v[:rows*columns]
+	m := make([][]float64, rows)
+	for i := range m {
+		m[i], d = d[:columns:columns], d[columns:]
+	}
+	return m
+}
+
 // Dimensions returns the number of dimensions in the matrix which is 2.
 func (A Matrix) Dimensions() int {
 	return 2
-}
-
-// Size returns of slice of integers containing the length of each dimension
-// of the matrix. Since there are two dimensions, the slice contains two
-// elements: the number of rows and the number of columns.
-func (A Matrix) Size() []int {
-	return []int{len(A), len(A[0])}
 }
 
 // Multiply performs matrix multiplication AB = C and returns a vector
@@ -25,7 +30,7 @@ func (A Matrix) Size() []int {
 func (A Matrix) Multiply(B Matrix) (v Vector, rows int, columns int) {
 	rows, columns = len(A), len(B[0])
 	v = make(Vector, rows*columns)
-	m := v.Matrix(rows, columns)
+	m := NewMatrix(v, rows, columns)
 	for i, aRow := range A {
 		mRow := m[i]
 		for k, bRow := range B {
@@ -35,6 +40,13 @@ func (A Matrix) Multiply(B Matrix) (v Vector, rows int, columns int) {
 		}
 	}
 	return v, rows, columns
+}
+
+// Size returns of slice of integers containing the length of each dimension
+// of the matrix. Since there are two dimensions, the slice contains two
+// elements: the number of rows and the number of columns.
+func (A Matrix) Size() []int {
+	return []int{len(A), len(A[0])}
 }
 
 // Sum returns the sum of all elements in the matrix.

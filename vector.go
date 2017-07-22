@@ -57,18 +57,6 @@ func (a Vector) Magnitude() float64 {
 	return math.Sqrt(sum)
 }
 
-// Matrix returns a 2-D view of the vector with the given number of rows and
-// columns. The vector is interpreted in row-major order. A panic will occur
-// if rows * columns > Vector.Size().
-func (a Vector) Matrix(rows, columns int) Matrix {
-	d := a[:rows*columns]
-	m := make([][]float64, rows)
-	for i := range m {
-		m[i], d = d[:columns:columns], d[columns:]
-	}
-	return m
-}
-
 // Normalize scales the vector by one over the magnitude of the vector such that
 // the vector's magnitude is one. Transforms vector into the unit vector.
 func (a Vector) Normalize() {

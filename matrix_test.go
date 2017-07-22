@@ -9,6 +9,44 @@ import (
 	"testing"
 )
 
+func TestNewMatrix(t *testing.T) {
+
+	// Number of rows and columns in matrix
+	rows, columns := 2, 3
+
+	// Create vector
+	v := make(Vector, rows*columns)
+
+	// Fill vector with unique values
+	for i := range v {
+		v[i] = float64(i)
+	}
+
+	// Create matrix view of vector
+	m := NewMatrix(v, rows, columns)
+
+	// If number of rows of matrix is not correct
+	if act, exp := len(m), rows; act != exp {
+		t.Fatalf("len(m) = %v, expected %v", act, exp)
+	}
+
+	// If number of columns of matrix is not correct
+	if act, exp := len(m[0]), columns; act != exp {
+		t.Fatalf("len(m[0]) = %v, expected %v", act, exp)
+	}
+
+	// Loop through matrix in row-major order
+	for i := 0; i < rows; i++ {
+		for j := 0; j < columns; j++ {
+
+			// Verify that matrix values match corresponding vector values
+			if act, exp := m[i][j], v[i*columns+j]; act != exp {
+				t.Fatalf("m[i][j] = %v, expected %v", act, exp)
+			}
+		}
+	}
+}
+
 func TestMatrix_Dimensions(t *testing.T) {
 	m := Matrix{}
 	if act, exp := m.Dimensions(), 2; act != exp {
@@ -23,15 +61,15 @@ func ExampleMatrix_Multiply_first() {
 	vb := Vector{4, 5, 6}
 
 	// Create matrix views of vectors
-	mA := va.Matrix(len(va), 1) // [3 x 1]
-	mB := vb.Matrix(1, len(vb)) // [1 x 3]
+	mA := NewMatrix(va, len(va), 1) // [3 x 1]
+	mB := NewMatrix(vb, 1, len(vb)) // [1 x 3]
 
 	// Multiply matrices and receive vector representing matrix
 	// with the given rows and columns
 	vc, rows, columns := mA.Multiply(mB)
 
 	// Create matrix view of result vector
-	mC := vc.Matrix(rows, columns)
+	mC := NewMatrix(vc, rows, columns)
 
 	fmt.Println(mA)
 	fmt.Println(mB)
@@ -47,12 +85,12 @@ func ExampleMatrix_Multiply_second() {
 	va := Vector{1, 2, 3}
 	vb := Vector{4, 5, 6}
 
-	mA := va.Matrix(1, len(va))
-	mB := vb.Matrix(len(vb), 1)
+	mA := NewMatrix(va, 1, len(va))
+	mB := NewMatrix(vb, len(vb), 1)
 
 	vc, rows, columns := mA.Multiply(mB)
 
-	mC := vc.Matrix(rows, columns)
+	mC := NewMatrix(vc, rows, columns)
 
 	fmt.Println(mC)
 	// Output:
