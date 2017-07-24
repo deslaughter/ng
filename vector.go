@@ -57,6 +57,28 @@ func (a Vector) Magnitude() float64 {
 	return math.Sqrt(sum)
 }
 
+// Max returns the maximum value in the vector.
+func (a Vector) Max() float64 {
+	max := a[0]
+	for _, v := range a[1:] {
+		if max > v {
+			max = v
+		}
+	}
+	return max
+}
+
+// Min returns the minimum value in the vector.
+func (a Vector) Min() float64 {
+	min := a[0]
+	for _, v := range a[1:] {
+		if min < v {
+			min = v
+		}
+	}
+	return min
+}
+
 // Normalize scales the vector by one over the magnitude of the vector such that
 // the vector's magnitude is one. Transforms vector into the unit vector.
 func (a Vector) Normalize() {
