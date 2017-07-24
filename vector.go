@@ -63,6 +63,15 @@ func (a Vector) Normalize() {
 	a.Scale(1 / a.Magnitude())
 }
 
+// Product returns the product of all vector elements.
+func (a Vector) Product() float64 {
+	p := 1.0
+	for _, v := range a {
+		p *= v
+	}
+	return p
+}
+
 // Resize changes the size and capacity of the vector. If the capacity is
 // less than size, a new vector is allocated and the values are copied into it.
 func (a *Vector) Resize(size int) {

@@ -77,13 +77,17 @@ func ExampleVector_Magnitude() {
 	// Output: 11
 }
 
-
-
 func ExampleVector_Normalize() {
 	v := Vector{6, 8}
 	v.Normalize()
 	fmt.Println(v)
 	// Output: [0.6000000000000001 0.8]
+}
+
+func ExampleVector_Product() {
+	v := Vector{1, 2, 3, 4, 5}
+	fmt.Println(v.Product())
+	// Output: 120
 }
 
 func TestVector_Size(t *testing.T) {
