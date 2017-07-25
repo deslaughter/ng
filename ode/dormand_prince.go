@@ -25,21 +25,21 @@ type FuncSystem func(t float64, y ng.Vector) (dydt ng.Vector)
 var (
 	dpA = [7][7]float64{
 		{},
-		{1},
-		{1 / 4, 3 / 4},
-		{11 / 9, -14 / 3, 40 / 9},
-		{4843 / 1458, -3170 / 243, 8056 / 729, -53 / 162},
-		{9017 / 3168, -355 / 33, 46732 / 5247, 49 / 176, -5103 / 18656},
-		{35 / 384, 0, 500 / 1113, 125 / 192, -2187 / 6784, 11 / 84},
+		{1.},
+		{1. / 4, 3. / 4},
+		{11. / 9, -14. / 3, 40. / 9},
+		{4843. / 1458, -3170. / 243, 8056. / 729, -53. / 162},
+		{9017. / 3168, -355. / 33, 46732. / 5247, 49. / 176, -5103. / 18656},
+		{35. / 384, 0, 500. / 1113, 125. / 192, -2187. / 6784, 11. / 84},
 	}
 
-	dpc = [7]float64{0, 1 / 5, 3 / 10, 4 / 5, 8 / 9, 1, 1}
+	dpc = [7]float64{0, 1. / 5, 3. / 10, 4. / 5, 8. / 9, 1, 1}
 
-	dpby = [7]float64{5179 / 57600, 0, 7571 / 16695, 393 / 640,
-		-92097 / 339200, 187 / 2100, 1 / 40}
+	dpby = [7]float64{5179. / 57600, 0, 7571. / 16695, 393. / 640,
+		-92097. / 339200, 187. / 2100, 1. / 40}
 
-	dpbz = [7]float64{35 / 384, 0, 500 / 1113, 125 / 192, -2187 / 6784,
-		11 / 84, 0}
+	dpbz = [7]float64{35. / 384, 0, 500. / 1113, 125. / 192, -2187. / 6784,
+		11. / 84, 0}
 )
 
 // DormandPrince uses the Dormand-Prince algorithm to calculate the value of y
@@ -54,49 +54,54 @@ func (opt Options) DormandPrince(f Func, t0, tf float64, y0 float64) float64 {
 	h := tf - t0
 	eAbs := opt.AbsoluteErrorTolerance
 
-	// Loop over rows in A matrix
-	for i, rowA := range dpA {
+	tmp := 0.0
 
-		// Calculate y for this interval
-		tmp := 0.0
-		for j := range rowA[:i] {
-			tmp += k[j] * rowA[j]
+	for t < tf {
+
+		// Loop over rows in A matrix
+		for i, rowA := range dpA {
+
+			// Calculate y for this interval
+			tmp = 0.0
+			for j := range rowA[:i] {
+				tmp += k[j] * rowA[j]
+			}
+
+			// Calculate slope for these inputs
+			k[i] = f(t+h*dpc[i], y+h*dpc[i]*tmp)
 		}
 
-		// Calculate slope for these inputs
-		k[i] = f(t+h*dpc[i], y+h*dpc[i]*tmp)
-	}
+		// Calculate next output
+		tmp = 0.0
+		for i, v := range dpby {
+			tmp += k[i] * v
+		}
+		yTmp := y + h*tmp
 
-	// Calculate next output
-	tmp := 0.0
-	for i, v := range dpby {
-		tmp += k[i] * v
-	}
-	yTmp := y + h*tmp
+		// Calculate next output
+		tmp = 0.0
+		for i, v := range dpbz {
+			tmp += k[i] * v
+		}
+		zTmp := y + h*tmp
 
-	// Calculate next output
-	tmp = 0.0
-	for i, v := range dpbz {
-		tmp += k[i] * v
-	}
-	zTmp := y + h*tmp
+		s := math.Pow(h*eAbs/(2*(tf-t0)*math.Abs(yTmp-zTmp)), 0.25)
 
-	s := math.Pow(h*eAbs/(2*(tf-t0)*math.Abs(yTmp-zTmp)), 0.25)
-
-	switch {
-	case s < 1:
-		h /= 2
-	case s >= 2:
-		t = t + h
-		y = zTmp
-		h *= 2
-	case t+h > tf:
-		t = t + h
-		y = zTmp
-		h = tf - h
-	default:
-		t = t + h
-		y = zTmp
+		switch {
+		case s < 1:
+			h /= 2
+		case s >= 2:
+			t = t + h
+			y = zTmp
+			h *= 2
+		case t+h > tf:
+			t = t + h
+			y = zTmp
+			h = tf - h
+		default:
+			t = t + h
+			y = zTmp
+		}
 	}
 
 	return y
