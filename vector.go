@@ -125,3 +125,9 @@ func (a Vector) Sum() float64 {
 	}
 	return sum
 }
+
+// Transpose performs an in-place matrix transpose of the elements in the
+// Vector. The resulting matrix will have the dimensions [columns x rows].
+func (a Vector) Transpose(rows, columns int) {
+
+}

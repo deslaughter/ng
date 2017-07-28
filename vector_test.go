@@ -152,3 +152,17 @@ func ExampleVector_Sum() {
 	fmt.Println(v.Sum())
 	// Output: 15
 }
+
+func ExampleVector_Transpose() {
+
+	rows, columns := 2, 3
+	v := Vector{1, 2, 3, 4, 5, 6}
+	A := NewMatrix(v, rows, columns)
+	fmt.Println(A)
+	B := NewMatrix(v, columns, rows)
+	v.Transpose(rows, columns)
+	fmt.Println(B)
+	// Output:
+	// [[1 2 3] [4 5 6]]
+	// [[1 4] [2 5] [3 6]]
+}
