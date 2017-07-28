@@ -130,4 +130,36 @@ func (a Vector) Sum() float64 {
 // Vector. The resulting matrix will have the dimensions [columns x rows].
 func (a Vector) Transpose(rows, columns int) {
 
+	q := rows*columns - 1
+
+	for start := 1; start < q; start++ {
+
+		next := start
+		i := 0
+
+		for {
+			i++
+			next = (next%rows)*columns + next/rows
+			if next <= start {
+				break
+			}
+		}
+
+		if next >= start && i != 1 {
+			t := a[start]
+			next = start
+			for {
+				i = (next%rows)*columns + next/rows
+				if i != start {
+					a[next] = a[i]
+				} else {
+					a[next] = t
+				}
+				next = i
+				if next <= start {
+					break
+				}
+			}
+		}
+	}
 }

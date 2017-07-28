@@ -155,14 +155,18 @@ func ExampleVector_Sum() {
 
 func ExampleVector_Transpose() {
 
-	rows, columns := 2, 3
-	v := Vector{1, 2, 3, 4, 5, 6}
+	rows, columns := 3, 5
+	v := Vector{
+		0, 1, 2, 3, 4,
+		5, 6, 7, 8, 9,
+		10, 11, 12, 13, 14,
+	}
 	A := NewMatrix(v, rows, columns)
 	fmt.Println(A)
 	B := NewMatrix(v, columns, rows)
 	v.Transpose(rows, columns)
 	fmt.Println(B)
 	// Output:
-	// [[1 2 3] [4 5 6]]
-	// [[1 4] [2 5] [3 6]]
+	// [[0 1 2 3 4] [5 6 7 8 9] [10 11 12 13 14]]
+	// [[0 5 10] [1 6 11] [2 7 12] [3 8 13] [4 9 14]]
 }
